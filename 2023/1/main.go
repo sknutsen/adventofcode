@@ -5,7 +5,31 @@ import (
 	"fmt"
 	"os"
 	"strconv"
+	"strings"
 )
+
+var numbers map[string]int = map[string]int{
+	"zero":  0,
+	"one":   1,
+	"two":   2,
+	"three": 3,
+	"four":  4,
+	"five":  5,
+	"six":   6,
+	"seven": 7,
+	"eigth": 8,
+	"nine":  9,
+	"orez":  0,
+	"eno":   1,
+	"owt":   2,
+	"eerht": 3,
+	"ruof":  4,
+	"evif":  5,
+	"xis":   6,
+	"neves": 7,
+	"thgie": 8,
+	"enin":  9,
+}
 
 func main() {
 	input, err := os.Open("input.txt")
@@ -51,10 +75,19 @@ func parse(inp string) int {
 }
 
 func parseFromStart(inp string) int {
+	var number string
 	for _, c := range inp {
 		val, err := parseNum(c)
 		if err == nil {
 			return val
+		}
+		number += string(c)
+
+		for k, v := range numbers {
+			if strings.Contains(number, k) || strings.Contains(reverse(number), k) {
+				println(number)
+				return v
+			}
 		}
 	}
 
